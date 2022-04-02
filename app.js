@@ -10,6 +10,7 @@ app.use(express.json());
 
 //* error handlers
 const notFoundMiddleware = require('./middleware/not-found');
+const errorMiddleware = require('./middleware/error-handler');
 
 //* routes
 app.use('/api/v1/guides', (req, res) => {
