@@ -6,14 +6,15 @@ const app = express();
 
 const connectDB = require('./db/connect');
 
-app.use(express.json());
+//*routers
+const postsRouter = require('./routes/posts');
+const authRouter = require('./routes/auth');
 
 //* error handlers
 const notFoundMiddleware = require('./middleware/not-found');
 const errorMiddleware = require('./middleware/error-handler');
 
-const postsRouter = require('./routes/posts');
-const authRouter = require('./routes/auth');
+app.use(express.json());
 
 //* routes
 app.get('/', (req, res) => {
