@@ -5,6 +5,7 @@ const express = require('express');
 const app = express();
 
 const connectDB = require('./db/connect');
+const authenticateUser = require('./middleware/authentication');
 
 //*routers
 const postsRouter = require('./routes/posts');
@@ -21,7 +22,7 @@ app.get('/', (req, res) => {
   res.send('<h1>Projet Tutos</h1>');
 });
 
-app.use('/api/v1/posts', postsRouter);
+app.use('/api/v1/posts', authenticateUser, postsRouter);
 app.use('/api/v1/auth', authRouter);
 
 app.use(notFoundMiddleware);
