@@ -1,4 +1,5 @@
 const Post = require('../models/Post');
+const { StatusCodes } = require('http-status-codes');
 
 const getAllPosts = async (req, res) => {
   res.send('All Posts');
@@ -9,7 +10,10 @@ const getPost = async (req, res) => {
 };
 
 const createPost = async (req, res) => {
-  res.send('Create Post');
+  req.body.createdBy = req.user.userID;
+  console.log(req.body);
+  const post = await Post.create(req.body);
+  res.status(StatusCodes.CREATED).json({ post });
 };
 
 const updatePost = async (req, res) => {
