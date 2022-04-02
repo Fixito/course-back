@@ -1,5 +1,6 @@
 const Post = require('../models/Post');
 const { StatusCodes } = require('http-status-codes');
+const { BadRequestError, NotFoundError } = require('../errors');
 
 const getAllPosts = async (req, res) => {
   const posts = await Post.find({});

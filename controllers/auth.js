@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
-const { createCustomError } = require('../errors/custom-error');
+const { BadRequestError, UnauthenticatedError } = require('../errors');
 
 const register = async (req, res) => {
   const user = await User.create({ ...req.body });
@@ -23,20 +23,14 @@ const login = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    throw new createCustomError(
-      'Invalid credentials',
-      StatusCodes.UNAUTHORIZED
-    );
+    throw new BadRequestError('Saisissez un email et un mot de passe');
   }
 
   //* compare password
   const isPasswordCorrect = await user.comparePassword(password);
 
   if (!isPasswordCorrect) {
-    throw new createCustomError(
-      'Invalid credentials',
-      StatusCodes.UNAUTHORIZED
-    );
+    throw new UnauthenticatedError('Identifiants incorrects');
   }
 
   const token = user.createJWT();
