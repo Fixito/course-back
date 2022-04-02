@@ -12,12 +12,17 @@ app.use(express.json());
 const notFoundMiddleware = require('./middleware/not-found');
 const errorMiddleware = require('./middleware/error-handler');
 
+const posts = require('./routes/posts');
+
 //* routes
-app.use('/api/v1/guides', (req, res) => {
-  res.send('hello world');
+app.get('/', (req, res) => {
+  res.send('<h1>Projet Tutos</h1>');
 });
 
+app.use('/api/v1/guides', posts);
+
 app.use(notFoundMiddleware);
+app.use(errorMiddleware);
 
 const port = process.env.PORT || 5000;
 
