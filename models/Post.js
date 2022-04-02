@@ -10,6 +10,11 @@ const PostSchema = new mongoose.Schema(
     content: {
       type: String,
       required: [true, 'Saisissez un contenu']
+    },
+    createdBy: {
+      type: mongoose.Types.ObjectId,
+      ref: 'User',
+      required: [true, 'Saisissez un utilisateur']
     }
   },
   { timestamps: true }

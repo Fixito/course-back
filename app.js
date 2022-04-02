@@ -12,19 +12,21 @@ app.use(express.json());
 const notFoundMiddleware = require('./middleware/not-found');
 const errorMiddleware = require('./middleware/error-handler');
 
-const posts = require('./routes/posts');
+const postsRouter = require('./routes/posts');
+const authRouter = require('./routes/auth');
 
 //* routes
 app.get('/', (req, res) => {
   res.send('<h1>Projet Tutos</h1>');
 });
 
-app.use('/api/v1/guides', posts);
+app.use('/api/v1/posts', postsRouter);
+app.use('/api/v1/auth', authRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
